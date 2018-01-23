@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "cute-todo-react",
+    "name": "Cute ToDo React",
     "description": "This project is really great.",
-    "slug": "cute-todo",
+    "slug": "cutetodo",
     "privacy": "public",
     "sdkVersion": "24.0.0",
     "platforms": ["ios", "android"],
@@ -18,7 +18,7 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "co.nomadcoders.kawai"
+      "package": "io.github.rudvlf0413"
     }
   }
 }

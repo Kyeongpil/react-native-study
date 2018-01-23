@@ -44,6 +44,7 @@ export default class App extends React.Component {
             returnKeyType={"done"}
             autoCorrect={false}
             onSubmitEditing={this._addToDo}
+            underlineColorAndroid={"transparent"}
           />
           <ScrollView contentContainerStyle={styles.toDos}>
             {Object.values(toDos).reverse().map(toDo => (
@@ -169,10 +170,10 @@ export default class App extends React.Component {
       const toDos = await AsyncStorage.getItem("toDos");
       const parsedToDos = JSON.parse(toDos)
       console.log(toDos);
-      this.setState({
+      setTimeout(() => this.setState({
         loadedToDos: true,
-        toDos: parsedToDos
-      });
+        toDos: parsedToDos || {}
+      }), 2000);
     } catch (err) {
       console.log(err);
     }
