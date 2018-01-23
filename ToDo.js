@@ -7,13 +7,13 @@ import {
   Dimensions,
   TextInput
 } from "react-native";
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
 
 const { width, height } = Dimensions.get("window");
 export default class ToDo extends Component {
   constructor(props) {
     super(props);
-    this.state = { isEditing: false ,toDoValue: props.text}
+    this.state = { isEditing: false, toDoValue: props.text };
   }
   static propTypes = {
     text: PropTypes.string.isRequired,
@@ -23,7 +23,7 @@ export default class ToDo extends Component {
     completeToDo: PropTypes.func.isRequired,
     uncompleteToDo: PropTypes.func.isRequired,
     updateToDo: PropTypes.func.isRequired
-  }
+  };
   state = {
     isEditing: false,
     toDoValue: ""
@@ -82,7 +82,12 @@ export default class ToDo extends Component {
                 <Text style={styles.actionText}>✏️</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPressOut={() => deleteToDo(id)} >
+            <TouchableOpacity
+              onPressOut={event => {
+                event.stopPropagation;
+                deleteToDo(id);
+              }}
+            >
               <View style={styles.actionContainer}>
                 <Text style={styles.actionText}>❌</Text>
               </View>
@@ -93,16 +98,18 @@ export default class ToDo extends Component {
     );
   }
 
-  _toggleComplete = () => {
-    const {isCompleted, uncompleteToDo, completeToDo, id} = this.props;
-    if(isCompleted){
-      uncompleteToDo(id)
+  _toggleComplete = event => {
+    event.stopPropagation();
+    const { isCompleted, uncompleteToDo, completeToDo, id } = this.props;
+    if (isCompleted) {
+      uncompleteToDo(id);
     } else {
-      completeToDo(id)
+      completeToDo(id);
     }
   };
 
-  _startEditing = () => {
+  _startEditing = event => {
+    event.stopPropagation();
     const { text } = this.props;
     this.setState({
       isEditing: true,
@@ -110,20 +117,21 @@ export default class ToDo extends Component {
     });
   };
 
-  _finishEditing = () => {
-    const {toDoValue} = this.state;
-    const {id, updateToDo } = this.props;
-    updateToDo(id, toDoValue)
+  _finishEditing = event => {
+    event.stopPropagation();
+    const { toDoValue } = this.state;
+    const { id, updateToDo } = this.props;
+    updateToDo(id, toDoValue);
     this.setState({
       isEditing: false
     });
   };
 
-  _controlInput = (text) => {
+  _controlInput = text => {
     this.setState({
       toDoValue: text
-    })
-  }
+    });
+  };
 }
 
 const styles = StyleSheet.create({
